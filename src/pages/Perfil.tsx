@@ -24,9 +24,9 @@ function Perfil() {
                     </div>
                 </div>
 
-                <button className="px-4 py-2 bg-black text-light rounded hover:bg-zinc-800 cursor-pointer">
+                <Link to="/editar-perfil" className="px-4 py-2 bg-black text-light rounded hover:bg-zinc-800 cursor-pointer">
                     Editar Perfil
-                </button>
+                </Link>
             </section>
 
             {/* Painel de Ações */}

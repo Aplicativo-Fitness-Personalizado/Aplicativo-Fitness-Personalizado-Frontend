@@ -6,6 +6,7 @@ import Navbar from "./components/Navbar";
 import Footer from "./components/Footer";
 import Perfil from "./pages/Perfil";
 import Login from "./pages/Login";
+import EditPerfil from "./pages/EditPerfil";
 
 function App() {
 
@@ -30,6 +31,7 @@ function App() {
               <Route path="/editar-treino/:id" element={<p>editar</p>} />
               <Route path="/deletar-treino/:id" element={<p>deletar treino</p>} />
               <Route path="/perfil" element={<Perfil />} />
+              <Route path="/editar-perfil" element={<EditPerfil />} />
               <Route path="*" element={<p>Not Found</p>} />
             </Routes>
           </div>
