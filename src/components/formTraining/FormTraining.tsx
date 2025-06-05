@@ -10,7 +10,7 @@ import { atualizar, buscar, cadastrar } from '../../services/Service';
 import { ToastAlerts } from '../../util/ToastAlerts';
 import { RotatingLines } from 'react-loader-spinner';
 
-export default function FormTraining({ closeModal }: { closeModal: () => void }) {
+export default function FormTraining({ closeModal }: { closeModal?: () => void }) {
 
   const navigate = useNavigate();
 
@@ -27,7 +27,7 @@ export default function FormTraining({ closeModal }: { closeModal: () => void })
 
   async function buscarTreinoPorId(id: string) {
     try {
-      await buscar(`/Treinos/${id}`, setTreino, {
+      await buscar(`/treinos/${id}`, setTreino, {
         headers: { Authorization: token }
       })
     } catch (error: any) {
@@ -60,28 +60,6 @@ export default function FormTraining({ closeModal }: { closeModal: () => void })
       }
     }
   }
-
-  useEffect(() => {
-    if (token === '') {
-      ToastAlerts('Você precisa estar logado', 'info')
-      navigate('/');
-    }
-  }, [token])
-
-  useEffect(() => {
-    buscarRegioes()
-
-    if (id !== undefined) {
-      buscarTreinoPorId(id)
-    }
-  }, [id])
-
-  useEffect(() => {
-    setTreino({
-      ...treino,
-      regiaoCorporal: regiao,
-    })
-  }, [regiao])
 
   function atualizarEstado(e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) {
     setTreino({
@@ -116,7 +94,6 @@ export default function FormTraining({ closeModal }: { closeModal: () => void })
 
     } else {
       try {
-        console.log(treino);
 
         await cadastrar(`/treinos`, treino, setTreino, {
           headers: {
@@ -135,7 +112,33 @@ export default function FormTraining({ closeModal }: { closeModal: () => void })
     }
 
     setIsLoading(false)
-    closeModal()
+    retornar()
+  }
+
+  useEffect(() => {
+    if (token === '') {
+      ToastAlerts('Você precisa estar logado', 'info')
+      navigate('/');
+    }
+  }, [token])
+
+  useEffect(() => {
+    buscarRegioes()
+
+    if (id !== undefined) {
+      buscarTreinoPorId(id)
+    }
+  }, [id])
+
+  useEffect(() => {
+    setTreino({
+      ...treino,
+      regiaoCorporal: regiao,
+    })
+  }, [regiao])
+
+  function retornar() {
+    navigate('/home');
   }
 
   const carregandoRegiao = regiao.descricao === '';
@@ -162,8 +165,14 @@ export default function FormTraining({ closeModal }: { closeModal: () => void })
         </div>
         <div className='flex flex-col gap-2'>
           <label htmlFor="regioesCorporal" className="w-full pl-3 font-normal">Região trabalhada</label>
-          <select name="regioesCorporal" id="regioesCorporal" className='resize-none w-full rounded-sm border-border bg-white px-3 py-2 text-md placeholder:text-muted-foreground text-text border-2 focus:outline-none focus:ring-2 focus:ring-primary' onChange={(e) => buscarRegiaoPorId(e.currentTarget.value)}>
-            <option value="" selected disabled>Selecione um Tema</option>
+          <select
+            value={treino.regiaoCorporal?.nome}
+            name="regioesCorporal"
+            id="regioesCorporal"
+            className='resize-none w-full rounded-sm border-border bg-white px-3 py-2 text-md placeholder:text-muted-foreground text-text border-2 focus:outline-none focus:ring-2 focus:ring-primary'
+            onChange={(e) => buscarRegiaoPorId(e.currentTarget.value)}
+          >
+            <option value="" disabled>Selecione uma Região</option>
             {regioes.map((regiao) => (
               <>
                 <option value={regiao.id}>{regiao.nome}</option>

@@ -9,14 +9,14 @@ import { buscar, deletar } from '../../services/Service';
 import { ToastAlerts } from '../../util/ToastAlerts';
 import { RotatingLines } from 'react-loader-spinner';
 
-export default function FormDeleteTraining({ closeModal }: { closeModal: () => void }) {
+export default function FormDeleteTraining({ id, closeModal }: { id: number, closeModal: () => void }) {
 
   const navigate = useNavigate()
 
   const [isLoading, setIsLoading] = useState<boolean>(false)
   const [treino, setTreino] = useState<Treino>({} as Treino)
 
-  const { id } = useParams<{ id: string }>()
+  // const { id } = useParams<{ id: string }>()
 
   const { usuario, handleLogout } = useContext(AuthContext)
   const token = usuario.token
@@ -44,7 +44,7 @@ export default function FormDeleteTraining({ closeModal }: { closeModal: () => v
 
   useEffect(() => {
     if (id !== undefined) {
-      buscarPorId(id)
+      buscarPorId(String(id))
     }
   }, [id])
 

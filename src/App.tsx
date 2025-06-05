@@ -10,6 +10,7 @@ import EditPerfil from "./pages/EditPerfil";
 import NotFound from "./pages/NotFound";
 import Cadastro from "./pages/Cadastro";
 import Atualizacoes from "./components/atualizacoes/Atualizacoes";
+import FormTraining from "./components/formTraining/FormTraining";
 
 function App() {
 
@@ -27,11 +28,11 @@ function App() {
               <Route path="/login" element={<Login />} />
               <Route path="/regiao" element={<p>temas</p>} />
               <Route path="/cadastrar-regiao" element={<p>Cadastro de região</p>} />
-              <Route path="/editar-regiao/:id" element={<p>editar região</p>} />
+              <Route path="/editar-regiao/:id" element={<p>teste</p>} />
               <Route path="/deletar-/:id" element={<p>deletar região</p>} />
               <Route path="/treino" element={<p>treinos</p>} />
               <Route path="/cadastrar-treino" element={<p>cadastrar treino</p>} />
-              <Route path="/editar-treino/:id" element={<p>editar</p>} />
+              <Route path="/editar-treino/:id" element={<FormTraining />} />
               <Route path="/deletar-treino/:id" element={<p>deletar treino</p>} />
               <Route path="/perfil" element={<Perfil />} />
               <Route path="/editar-perfil" element={<EditPerfil />} />

@@ -4,6 +4,7 @@ import editar from "../../assets/img/Editar.png";
 import ModalDeleteTraining from '../modalTraining/ModalDeleteTraining';
 import FormTraining from '../formTraining/FormTraining';
 import Popup from 'reactjs-popup';
+import { Link } from 'react-router';
 
 
 interface CardTreinoProps {
@@ -12,7 +13,7 @@ interface CardTreinoProps {
 
 function CardTreino({ treino }: CardTreinoProps) {
   return (
-    <div className="bg-white rounded-xl cursor-pointer shadow-md hover:shadow-xl shadow-gray-600 transition-shadow duration-300 w-[392px] h-[336px] px-6 py-4 border-1 border-gray-200">
+    <div className="relative bg-white rounded-xl cursor-pointer shadow-md hover:shadow-xl shadow-gray-600 transition-shadow duration-300 w-[392px] h-[336px] px-6 py-4 border-1 border-gray-200">
       <div className="grid grid-cols-2 text-gray-500 mb-2">
         <div className="">
           <p className="font-normal">Título</p>
@@ -35,30 +36,22 @@ function CardTreino({ treino }: CardTreinoProps) {
         </div>
       </div>
 
-      <div className="text-gray-500 mb-4 pb-13">
+      <div className="text-gray-500 pb-13">
         <p className="font-normal">Descrição:</p>
         <p className="text-black font-semibold">{treino.descricao}</p>
       </div>
 
-      <div className="flex justify-between mt-4">
+      <div className="flex justify-between absolute bottom-3 gap-4">
 
-        <Popup
-          trigger={
-            <button className="cursor-pointer font-semibold px-4 py-1 rounded-lg bg-gray-700 text-white hover:bg-gray-900 transition-colors duration-1000 w-[150px] h-[50px]">
-              <img src={editar} alt="Logo do lápis" className="w-[14px] h-[16px] inline-block mr-2" />
-              Editar
-            </button>
-          }
-          modal
-          nested
-        >
-          {((close: () => void) => (
-            <FormTraining closeModal={close} />
-          )) as unknown as React.ReactNode}
+        <Link to={`/editar-treino/${treino.id}`}>
+          <button className="cursor-pointer font-semibold px-4 py-1 rounded-lg bg-gray-700 text-white hover:bg-gray-900 transition-colors duration-1000 w-[150px] h-[50px]">
+            <img src={editar} alt="Logo do lápis" className="w-[14px] h-[16px] inline-block mr-2" />
+            Editar
+          </button>
+        </Link>
 
-        </Popup>
 
-        <ModalDeleteTraining />
+        <ModalDeleteTraining id={treino.id} />
 
 
       </div>
