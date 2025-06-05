@@ -1,0 +1,69 @@
+import type Treino from '../../models/Treino'
+
+import editar from "../../assets/img/Editar.png";
+import ModalDeleteTraining from '../modalTraining/ModalDeleteTraining';
+import FormTraining from '../formTraining/FormTraining';
+import Popup from 'reactjs-popup';
+
+
+interface CardTreinoProps {
+  treino: Treino
+}
+
+function CardTreino({ treino }: CardTreinoProps) {
+  return (
+    <div className="bg-white rounded-xl cursor-pointer shadow-md hover:shadow-xl shadow-gray-600 transition-shadow duration-300 w-[392px] h-[336px] px-6 py-4 border-1 border-gray-200">
+      <div className="grid grid-cols-2 text-gray-500 mb-2">
+        <div className="">
+          <p className="font-normal">Título</p>
+          <p className="text-black font-semibold">{treino.titulo}</p>
+        </div>
+        <div className="ml-7">
+          <p className="font-normal">Região Trabalhada</p>
+          <p className="text-black font-semibold">{treino.regiaoCorporal?.nome}</p>
+        </div>
+      </div>
+
+      <div className="grid grid-cols-2 text-gray-500  mb-2">
+        <div>
+          <p className="font-normal">Tempo de Descanso</p>
+          <p className="text-black font-semibold">{treino.tempoDescanso}</p>
+        </div>
+        <div className="ml-7">
+          <p className="font-normal">Repetição</p>
+          <p className="text-black font-semibold">{treino.repeticao}</p>
+        </div>
+      </div>
+
+      <div className="text-gray-500 mb-4 pb-13">
+        <p className="font-normal">Descrição:</p>
+        <p className="text-black font-semibold">{treino.descricao}</p>
+      </div>
+
+      <div className="flex justify-between mt-4">
+
+        <Popup
+          trigger={
+            <button className="cursor-pointer font-semibold px-4 py-1 rounded-lg bg-gray-700 text-white hover:bg-gray-900 transition-colors duration-1000 w-[150px] h-[50px]">
+              <img src={editar} alt="Logo do lápis" className="w-[14px] h-[16px] inline-block mr-2" />
+              Editar
+            </button>
+          }
+          modal
+          nested
+        >
+          {((close: () => void) => (
+            <FormTraining closeModal={close} />
+          )) as unknown as React.ReactNode}
+
+        </Popup>
+
+        <ModalDeleteTraining />
+
+
+      </div>
+    </div>
+  )
+}
+
+export default CardTreino

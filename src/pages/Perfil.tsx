@@ -1,26 +1,40 @@
 import { UserCircleIcon, HeartbeatIcon } from "@phosphor-icons/react";
-import { Link } from "react-router"
+import { useContext, useEffect } from "react";
+import { Link, useNavigate } from "react-router"
+import { AuthContext } from "../contexts/AuthContext";
+import { ToastAlerts } from "../util/ToastAlerts";
 
 function Perfil() {
+
+     const navigate = useNavigate()
+
+    const { usuario } = useContext(AuthContext)
+
+    useEffect(() => {
+        if (usuario.token === "") {
+            ToastAlerts("Você precisa estar logado", "info")
+            navigate("/")
+        }
+    }, [usuario.token])
+    
     return (
         <div className="min-h-screen bg-background text-text p-4">
-            {/* Saudação */}
+
             <section className="max-w-4xl mx-auto mt-10 text-center">
-                <h1 className="text-text text-4xl font-bold mb-2">Olá, João 👋</h1>
+                <h1 className="text-text text-4xl font-bold mb-2">Olá, {usuario.nome} 👋</h1>
                 <p className="text-text-tertiary text-2xl">Pronto para mais um treino hoje?</p>
             </section>
 
-            {/* Card de Perfil */}
             <section className="bg-white text-text rounded-xl shadow-lg p-6 w-full max-w-4xl mx-auto mt-16 flex items-end gap-6">
                 <div className="flex items-center gap-6 flex-grow">
                     <img
-                        src="https://i.pravatar.cc/100"
+                        src="https://cdn-icons-png.flaticon.com/512/149/149071.png"
                         className="w-32 h-32 rounded-full border-2 border-primary"
-                        alt="Avatar"
+                        alt={`Avatar de ${usuario.nome}`}
                     />
                     <div>
-                        <h2 className="text-text text-2xl font-bold mb-2">João da Silva</h2>
-                        <p className="text-text-tertiary">joao@email.com</p>
+                        <h2 className="text-text text-2xl font-bold mb-2">Nome: {usuario.nome}</h2>
+                        <p className="text-text-tertiary">Email: {usuario.usuario}</p>
                     </div>
                 </div>
 
@@ -29,9 +43,9 @@ function Perfil() {
                 </Link>
             </section>
 
-            {/* Painel de Ações */}
+            
             <section className="grid grid-cols-1 sm:grid-cols-2 gap-6 max-w-3xl mx-auto mt-12 justify-center">
-                <Link to="/">
+                <Link to="/home">
                     <div className="bg-primary p-6 rounded-lg shadow hover:shadow-lg transition h-40">
                         <div className="flex items-center gap-2 mb-4">
                             <UserCircleIcon size={28} />
