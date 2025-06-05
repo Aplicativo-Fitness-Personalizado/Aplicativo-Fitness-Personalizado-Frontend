@@ -7,6 +7,6 @@ export default interface Treino {
   descricao: string;
   repeticao: number;
   tempoDescanso: string;
-  regiaocorporal: RegiaoCorporal | null;
+  regiaoCorporal: RegiaoCorporal | null;
   usuario: Usuario | null;
 }

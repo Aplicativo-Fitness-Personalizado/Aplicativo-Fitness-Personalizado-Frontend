@@ -5,7 +5,7 @@ export default interface Usuario {
   nome: string;
   usuario: string;
   senha: string;
-  altura: number;
-  peso: number;
+  altura: string;
+  peso: string;
   treino?: Treino[] | null;
 }
