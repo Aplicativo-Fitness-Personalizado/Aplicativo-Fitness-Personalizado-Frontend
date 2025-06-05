@@ -5,6 +5,8 @@ import './ModalBodyRegion.css';
 import FormDeleteBodyRegion from '../formBodyRegion/FormDeleteBodyRegion';
 
 export default function ModalDeleteBodyRegion() {
+
+
   return (
     <div>
       <Popup

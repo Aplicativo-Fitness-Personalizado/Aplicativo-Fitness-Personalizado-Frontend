@@ -51,10 +51,8 @@ function Home() {
             <ModalBodyRegion />
           </div>
         </div>
-
-        <ListaTreino />
-
       </div>
+      <ListaTreino />
     </>
   );
 }
