@@ -37,7 +37,7 @@ function Perfil() {
                             <UserCircle size={28} />
                             <h3 className="text-lg font-bold text-text">Meus Treinos</h3>
                         </div>
-                        <p className="text-base text-text-tertiary">Acesse sua rotina personalizada.</p>
+                        <p className="text-base text-text">Acesse sua rotina personalizada.</p>
                     </div>
                 </Link>
 
@@ -47,7 +47,7 @@ function Perfil() {
                             <Heartbeat size={28} />
                             <h3 className="text-lg font-bold text-text">Consultar IMC</h3>
                         </div>
-                        <p className="text-base text-text-tertiary mb-2">Verifique seu índice de massa corporal.</p>
+                        <p className="text-base text-text mb-2">Verifique seu índice de massa corporal.</p>
                     </div>
                 </Link>
             </section>
