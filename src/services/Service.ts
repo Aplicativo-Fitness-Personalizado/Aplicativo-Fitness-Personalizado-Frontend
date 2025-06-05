@@ -4,7 +4,7 @@ const api = axios.create({
     baseURL: import.meta.env.VITE_API_URL
 })
 
-export const Usuario = async (url: string, dados: Object, setDados: Function) => {
+export const usuario = async (url: string, dados: Object, setDados: Function) => {
     const resposta = await api.post(url, dados)
     setDados(resposta.data)
 }
