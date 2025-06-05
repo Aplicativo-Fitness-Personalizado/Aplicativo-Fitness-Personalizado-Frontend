@@ -1,0 +1,11 @@
+.popup-content {
+  border-radius: 16px;
+  max-width: 700px;
+  width: 100%;
+}
+
+.popup-overlay {
+  background-color: rgba(122, 124, 128, 0.3);
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px); /* para compatibilidade com Safari */
+}

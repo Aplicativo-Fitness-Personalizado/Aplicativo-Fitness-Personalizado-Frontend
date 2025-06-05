@@ -9,3 +9,20 @@
     font-family: inter, sans-serif;
   }
 }
+
+@theme {
+  --color-primary: #81bc1a;
+  --color-black: #212120;
+  --color-secondary: #f97316;
+  --color-background: #f3f4f6;
+  --color-text: #212120;
+  --color-text-secundary: #a9aca6;
+  --color-text-tertiary: #848681;
+  --color-border: #e5e7eb;
+  --color-accent: #2563eb;
+  --color-success: #16a34a;
+  --color-warning: #f59e0b;
+  --color-error: #dc2626;
+  --color-info: #2563eb;
+  --color-light: #f9fafb;
+}
