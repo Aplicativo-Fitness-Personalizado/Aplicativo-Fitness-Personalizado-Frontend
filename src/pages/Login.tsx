@@ -48,7 +48,7 @@ function Login() {
 
                     <p className="text-center text-text-tertiary mt-6">
                         Não tem uma conta ainda?{" "}
-                        <Link to="/" className="text-black font-semibold hover:underline inline-flex items-center gap-1">
+                        <Link to="/cadastrar" className="text-black font-semibold hover:underline inline-flex items-center gap-1">
                             Registrar-se <span>→</span>
                         </Link>
                     </p>
