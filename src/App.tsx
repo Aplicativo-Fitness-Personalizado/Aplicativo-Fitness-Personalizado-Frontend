@@ -1,6 +1,9 @@
 import { BrowserRouter as Router, Route, Routes } from "react-router";
 import { ToastContainer } from "react-toastify"
 import { AuthProvider } from "./contexts/AuthContext"
+import Home from "./pages/Home";
+import Navbar from "./components/Navbar";
+import Footer from "./components/Footer";
 
 function App() {
 
@@ -9,11 +12,11 @@ function App() {
       <AuthProvider>
         <ToastContainer />
         <Router>
-          {/* Colocar Navbar aqui */}
+          <Navbar />
           <div>
             <Routes>
               <Route path="/" element={<p>Login</p>} />
-              <Route path="/home" element={<p>home</p>} />
+              <Route path="/home" element={<Home />} />
               <Route path="/cadastro" element={<p>Cadastro</p>} />
               <Route path="/login" element={<p>Login</p>} />
               <Route path="/regiao" element={<p>temas</p>} />
@@ -28,7 +31,7 @@ function App() {
               <Route path="*" element={<p>Not Found</p>} />
             </Routes>
           </div>
-          {/* Colocar Footer aqui */}
+          <Footer />
         </Router>
       </AuthProvider>
     </>
