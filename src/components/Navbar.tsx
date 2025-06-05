@@ -1,18 +1,28 @@
 import { SignOutIcon, UserIcon, Wrench } from "@phosphor-icons/react";
 import Logo from "../assets/img/logo.png"
 import { Link, useNavigate } from 'react-router';
+import { useContext, type ReactNode } from "react";
+import { AuthContext } from "../contexts/AuthContext";
 
 
 function Navbar() {
 
-    const navigate = useNavigate();
+  const navigate = useNavigate();
+
+    const { usuario, handleLogout } = useContext(AuthContext)
 
     function logout() {
 
+        handleLogout()
+        ToastAlerta('O Usuário foi desconectado com sucesso!', 'info')
         navigate('/')
     }
+    let component: ReactNode
 
-    return (
+    if (usuario.token !== "") {
+
+        component =(
+    
         <header className="w-full bg-background text-light shadow-md flex items-center justify-between px-6 py-3">
 
             <Link to="/home" className="flex items-center gap-4 border-border">
@@ -40,4 +50,15 @@ function Navbar() {
     )
 }
 
+return (
+           <>
+            {component}
+        </>
+    )
+}
+
 export default Navbar
+
+function ToastAlerta(arg0: string, arg1: string) {
+        throw new Error("Function not implemented.");
+    }
