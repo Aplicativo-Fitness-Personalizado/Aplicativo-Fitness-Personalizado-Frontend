@@ -6,6 +6,7 @@ import { ToastAlerts } from "../util/ToastAlerts"
 
 interface AuthContextProps {
   usuario: UsuarioLogin
+  setUsuario: React.Dispatch<React.SetStateAction<UsuarioLogin>>
   handleLogout(): void
   handleLogin(usuario: UsuarioLogin): Promise<void>
   isLoading: boolean
@@ -51,7 +52,7 @@ export function AuthProvider({ children }: AuthProviderProps) {
   }
 
   return (
-    <AuthContext.Provider value={{ usuario, handleLogin, handleLogout, isLoading }}>
+    <AuthContext.Provider value={{ usuario, setUsuario, handleLogin, handleLogout, isLoading }}>
       {children}
     </AuthContext.Provider>
   )
