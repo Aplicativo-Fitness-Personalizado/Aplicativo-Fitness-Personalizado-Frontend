@@ -1,7 +1,5 @@
 import LogoBanner from "../assets/img/LogoBanner.png";
 import LogoBalanca from "../assets/img/LogoBalanca.png";
-import LogoRegiao from "../assets/img/LogoRegiao.png"
-import LogoTreino from "../assets/img/LogoTreino.png";
 import ListaTreino from "../components/listatreino/ListaTreino";
 import ModalTraining from "../components/modalTraining/ModalTraining";
 import ModalBodyRegion from "../components/modelBodyRegion/ModalBodyRegion";

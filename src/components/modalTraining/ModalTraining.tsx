@@ -6,6 +6,7 @@ import 'reactjs-popup/dist/index.css';
 import './ModalTraining.css';
 
 export default function ModalTraining() {
+
   return (
     <div>
       <Popup
