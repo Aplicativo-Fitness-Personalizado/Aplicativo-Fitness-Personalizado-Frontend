@@ -1,9 +1,8 @@
-import React from "react";
 import LogoBanner from "../assets/img/LogoBanner.png";
 import LogoBalanca from "../assets/img/LogoBalanca.png";
-import LogoRegiao from "../assets/img/LogoRegiao.png"
-import LogoTreino from "../assets/img/LogoTreino.png";
 import ListaTreino from "../components/listatreino/ListaTreino";
+import ModalTraining from "../components/modalTraining/ModalTraining";
+import ModalBodyRegion from "../components/modelBodyRegion/ModalBodyRegion";
 
 
 function Home() {
@@ -18,11 +17,11 @@ function Home() {
                   <div className="font-semibold text-2xl md:text-4xl text-left p-13 flex flex-col justify-between h-full text-[#212120] ">
 
                     <div>
-                        <h2 className="mb-2">Mente afiada, corpo forte.</h2>
-                        <h2>Encontre seu equilibrio no Fitlab.</h2>
+                      <h2 className="mb-2">Mente afiada, corpo forte.</h2>
+                      <h2>Encontre seu equilibrio no Fitlab.</h2>
                     </div>
 
-                    <button className="bg-gray-800 text-white rounded-lg hover:bg-[#9FE722] transition-colors duration-1500  w-[150px] h-[50px] flex items-center justify-around cursor-pointer font-semibold">
+                    <button className="bg-gray-800 text-white w-[200px] rounded-sm h-[56px] flex gap-3 items-center justify-around cursor-pointer font-semibold">
                       <span className="text-xs md:text-sm">
                         Calcule seu IMC
                       </span>
@@ -46,27 +45,12 @@ function Home() {
           <h3 className="text-xl font-semibold">Listagem dos treinos</h3>
 
           <div className="space-x-2 flex items-center p-2" >
-            <button className="bg-gray-800 text-white rounded-lg hover:bg-[#9FE722] transition-colors duration-1500 w-[150px] h-[50px] flex items-center justify-around cursor-pointer font-semibold">
-                      <span className="text-xs md:text-sm">
-                        Cadastrar Treino
-                      </span>
-                      <img src={LogoTreino} className="w-[18px] h-[18px]" />
-                    </button>
-            <button className="bg-gray-800 text-white rounded-lg hover:bg-[#9FE722] transition-colors duration-1500 w-[150px] h-[50px] flex items-center justify-around cursor-pointer font-semibold">
-                      <span className="text-xs md:text-sm">
-                        Cadastrar Região
-                      </span>
-                      <img src={LogoRegiao} className="w-[18px] h-[18px]" />
-                    </button>
-             </div>
-
-          
+            <ModalTraining />
+            <ModalBodyRegion />
           </div>
-          
-          </div>
-        
-        
-        <ListaTreino/>
+        </div>
+      </div>
+      <ListaTreino />
     </>
   );
 }

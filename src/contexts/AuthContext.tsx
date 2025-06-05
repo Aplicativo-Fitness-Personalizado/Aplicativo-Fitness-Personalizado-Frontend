@@ -25,6 +25,8 @@ export function AuthProvider({ children }: AuthProviderProps) {
     nome: "",
     usuario: "",
     senha: "",
+    altura: "",
+    peso: "",
     token: ""
   })
 
@@ -47,6 +49,8 @@ export function AuthProvider({ children }: AuthProviderProps) {
       nome: "",
       usuario: "",
       senha: "",
+      altura: "",
+      peso: "",
       token: ""
     })
   }

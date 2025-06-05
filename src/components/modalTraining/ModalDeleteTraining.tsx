@@ -1,17 +1,20 @@
 import Popup from 'reactjs-popup';
+import Excluir from "../../assets/img/Excluir.png";
 
 import 'reactjs-popup/dist/index.css';
 import './ModalTraining.css';
 import FormDeleteTraining from '../formTraining/FormDeleteTraining';
 
 export default function ModalDeleteTraining() {
+
+
   return (
     <div>
       <Popup
         trigger={
-          <button
-            className='border rounded px-4 py-2 hover:bg-white hover:text-indigo-800'>
-            Deletar Treino
+          <button className="cursor-pointer font-semibold px-4 py-1 rounded-lg bg-[#ff2d55] text-white hover:bg-red-600 transition-colors duration-1000 w-[150px] h-[50px]">
+            <img src={Excluir} alt="Logo da Lixeixa" className="w-[14px] h-[16px] inline-block mr-2" />
+            Excluir
           </button>
         }
         modal

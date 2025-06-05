@@ -1,11 +1,75 @@
+import { useContext, useEffect, useState } from 'react';
 import alter from '../../assets/icons/alter.png';
+import type Treino from '../../models/Treino';
 import Button from '../Button';
 import Input from '../Input';
+import { useNavigate, useParams } from 'react-router';
+import { AuthContext } from '../../contexts/AuthContext';
+import { buscar, deletar } from '../../services/Service';
+import { ToastAlerts } from '../../util/ToastAlerts';
+import { RotatingLines } from 'react-loader-spinner';
 
 export default function FormDeleteTraining({ closeModal }: { closeModal: () => void }) {
 
-  function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
-    event.preventDefault();
+  const navigate = useNavigate()
+
+  const [isLoading, setIsLoading] = useState<boolean>(false)
+  const [treino, setTreino] = useState<Treino>({} as Treino)
+
+  const { id } = useParams<{ id: string }>()
+
+  const { usuario, handleLogout } = useContext(AuthContext)
+  const token = usuario.token
+
+  async function buscarPorId(id: string) {
+    try {
+      await buscar(`/treinos/${id}`, setTreino, {
+        headers: {
+          'Authorization': token
+        }
+      })
+    } catch (error: any) {
+      if (error.toString().includes('403')) {
+        handleLogout()
+      }
+    }
+  }
+
+  useEffect(() => {
+    if (token === '') {
+      ToastAlerts('Você precisa estar logado', 'info')
+      navigate('/')
+    }
+  }, [token])
+
+  useEffect(() => {
+    if (id !== undefined) {
+      buscarPorId(id)
+    }
+  }, [id])
+
+  async function deletarTreino() {
+    setIsLoading(true)
+
+    try {
+      await deletar(`/treinos/${id}`, {
+        headers: {
+          'Authorization': token
+        }
+      })
+
+      ToastAlerts("Treino apagado com sucesso", "sucesso")
+
+    } catch (error: any) {
+      if (error.toString().includes('403')) {
+        handleLogout()
+      } else {
+        ToastAlerts("Erro ao deletar o treino.", "erro")
+      }
+    }
+
+    setIsLoading(false)
+    closeModal()
   }
 
   return (
@@ -15,29 +79,28 @@ export default function FormDeleteTraining({ closeModal }: { closeModal: () => v
         <p className="text-2xl font-semibold text-gray-800">Remover Treino</p>
         <p className="text-sm font-semibold text-gray-800">Você tem certeza que deseja remover o registro a seguir?</p>
       </div>
-      <form action="" method="post" className="flex flex-col gap-4" onSubmit={handleSubmit}>
-        <Input label='Titulo' placeholder='Titulo' name='bodyRegion' disabled />
+      <form className="flex flex-col gap-4">
+        <Input label='Titulo' placeholder='Titulo' name='bodyRegion' disabled value={treino.titulo} />
         <div className='flex flex-col gap-2'>
-          <label htmlFor="" className="w-full pl-3 font-normal">Descrição</label>
-          <textarea name="" disabled className='resize-none w-full rounded-sm border-border bg-white px-3 py-2 text-md placeholder:text-muted-foreground text-text border-2 focus:outline-none focus:ring-2 focus:ring-primary disabled:cursor-not-allowed disabled:opacity-50 disabled:bg-gray-200' id="" placeholder='Descrição...'></textarea>
-        </div>
-        <Input label='Repetição' placeholder='4 series de 10 repetições' name='repetição' disabled />
-        <div className='flex gap-2'>
-          <Input label='Altura' placeholder='1.95' name='altura' disabled />
-          <Input label='Peso' placeholder='90' name='peso' disabled />
-        </div>
-        <div className='mb-4'>
-          <label htmlFor="regioes" className="w-full pl-3 font-normal">Descrição</label>
-          <select disabled name="regioes" id="" className='resize-none w-full rounded-sm border-border bg-white px-3 py-2 text-md placeholder:text-muted-foreground text-text-secundary border-2 focus:outline-none focus:ring-2 focus:ring-primary disabled:cursor-not-allowed disabled:opacity-50 disabled:bg-gray-200'>
-            <option value=""></option>
-            <option value=""></option>
-            <option value=""></option>
-            <option value=""></option>
-          </select>
+          <label htmlFor="descricao" className="w-full pl-3 font-normal">Descrição</label>
+          <textarea name="descricao" disabled className='resize-none w-full rounded-sm border-border bg-white px-3 py-2 text-md placeholder:text-muted-foreground text-text border-2 focus:outline-none focus:ring-2 focus:ring-primary disabled:cursor-not-allowed disabled:opacity-50 disabled:bg-gray-200' id="descricao" placeholder='Descrição...' value={treino.descricao}></textarea>
         </div>
         <div className='flex gap-2'>
-          <Button variant='warning'>
-            Remover
+          <Input label='Repetição' placeholder='4 series de 10 repetições' name='repetição' disabled value={treino.repeticao} />
+          <Input label='Tempo de descanso' placeholder='60 min' name='tempoDescanso' disabled value={treino.tempoDescanso} />
+        </div>
+        <div className='flex gap-2'>
+          <Button variant='warning' onClick={deletarTreino}>
+            {isLoading ?
+              <RotatingLines
+                strokeColor="white"
+                strokeWidth="5"
+                animationDuration="0.75"
+                width="24"
+                visible={true}
+              /> :
+              <span>Remover</span>
+            }
           </Button>
           <Button variant='cancel' className='mt-2' onClick={closeModal}>
             Cancelar
