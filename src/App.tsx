@@ -9,6 +9,7 @@ import Login from "./pages/Login";
 import EditPerfil from "./pages/EditPerfil";
 import NotFound from "./pages/NotFound";
 import Cadastro from "./pages/Cadastro";
+import Atualizacoes from "./components/atualizacoes/Atualizacoes";
 
 function App() {
 
@@ -34,6 +35,7 @@ function App() {
               <Route path="/deletar-treino/:id" element={<p>deletar treino</p>} />
               <Route path="/perfil" element={<Perfil />} />
               <Route path="/editar-perfil" element={<EditPerfil />} />
+              <Route path="/atualizacoes" element={<Atualizacoes />} />
               <Route path="*" element={<NotFound />} />
             </Routes>
           </div>
