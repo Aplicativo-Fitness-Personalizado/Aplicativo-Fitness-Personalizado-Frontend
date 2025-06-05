@@ -1,11 +1,11 @@
 import { Link } from "react-router"
-import Logo from "../src/assets/img/logo.png"
+import Logo from "../assets/Logo.png"
 
 function Login() {
     return (
         <>
             <div
-                className="w-full h-screen bg-cover bg-center flex items-center justify-center"
+                className="w-full min-h-screen bg-cover bg-center py-7 flex items-center justify-center"
                 style={{ backgroundImage: "url('https://ik.imagekit.io/lml7cc5ua/imagem-fundo.png?updatedAt=1749063545945')" }} // ajuste caminho da imagem
             >
                 <div className="bg-background p-14 rounded-xl shadow-lg w-full max-w-lg">

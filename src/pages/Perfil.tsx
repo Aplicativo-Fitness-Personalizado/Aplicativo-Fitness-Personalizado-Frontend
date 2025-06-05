@@ -1,4 +1,4 @@
-import { UserCircle, Heartbeat } from "@phosphor-icons/react";
+import { UserCircleIcon, HeartbeatIcon } from "@phosphor-icons/react";
 import { Link } from "react-router"
 
 function Perfil() {
@@ -34,7 +34,7 @@ function Perfil() {
                 <Link to="/">
                     <div className="bg-primary p-6 rounded-lg shadow hover:shadow-lg transition h-40">
                         <div className="flex items-center gap-2 mb-4">
-                            <UserCircle size={28} />
+                            <UserCircleIcon size={28} />
                             <h3 className="text-lg font-bold text-text">Meus Treinos</h3>
                         </div>
                         <p className="text-base text-text">Acesse sua rotina personalizada.</p>
@@ -44,7 +44,7 @@ function Perfil() {
                 <Link to="/">
                     <div className="bg-primary p-6 rounded-lg shadow hover:shadow-lg transition h-40">
                         <div className="flex items-center gap-2 mb-4">
-                            <Heartbeat size={28} />
+                            <HeartbeatIcon size={28} />
                             <h3 className="text-lg font-bold text-text">Consultar IMC</h3>
                         </div>
                         <p className="text-base text-text mb-2">Verifique seu índice de massa corporal.</p>
