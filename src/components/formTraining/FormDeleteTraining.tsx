@@ -21,10 +21,10 @@ export default function FormDeleteTraining({ closeModal }: { closeModal: () => v
           <label htmlFor="" className="w-full pl-3 font-normal">Descrição</label>
           <textarea name="" disabled className='resize-none w-full rounded-sm border-border bg-white px-3 py-2 text-md placeholder:text-muted-foreground text-text border-2 focus:outline-none focus:ring-2 focus:ring-primary disabled:cursor-not-allowed disabled:opacity-50 disabled:bg-gray-200' id="" placeholder='Descrição...'></textarea>
         </div>
-        <Input label='Repetição' placeholder='4' name='repetição' disabled type="number" />
+        <Input label='Repetição' placeholder='4 series de 10 repetições' name='repetição' disabled />
         <div className='flex gap-2'>
           <Input label='Altura' placeholder='1.95' name='altura' disabled />
-          <Input label='Altura' placeholder='90' name='peso' disabled />
+          <Input label='Peso' placeholder='90' name='peso' disabled />
         </div>
         <div className='mb-4'>
           <label htmlFor="regioes" className="w-full pl-3 font-normal">Descrição</label>

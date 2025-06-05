@@ -20,10 +20,10 @@ export default function FormTraining({ closeModal }: { closeModal: () => void })
           <label htmlFor="" className="w-full pl-3 font-normal">Descrição</label>
           <textarea name="" className='resize-none w-full rounded-sm border-border bg-white px-3 py-2 text-md placeholder:text-muted-foreground text-text border-2 focus:outline-none focus:ring-2 focus:ring-primary' id="" placeholder='Descrição...'></textarea>
         </div>
-        <Input label='Repetição' placeholder='4' name='repetição' required type="number" />
+        <Input label='Repetição' placeholder='4 series de 10 repetições' name='repetição' required />
         <div className='flex gap-2'>
           <Input label='Altura' placeholder='1.95' name='altura' required />
-          <Input label='Altura' placeholder='90' name='peso' required />
+          <Input label='Peso' placeholder='90' name='peso' required />
         </div>
         <div className='flex flex-col gap-2'>
           <label htmlFor="regioes" className="w-full pl-3 font-normal">Região trabalhada</label>
