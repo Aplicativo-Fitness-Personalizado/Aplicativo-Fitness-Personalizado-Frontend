@@ -1,6 +1,13 @@
 import { BrowserRouter as Router, Route, Routes } from "react-router";
 import { ToastContainer } from "react-toastify"
 import { AuthProvider } from "./contexts/AuthContext"
+import Home from "./pages/Home";
+import Navbar from "./components/Navbar";
+import Footer from "./components/Footer";
+import Perfil from "./pages/Perfil";
+import Login from "./pages/Login";
+import EditPerfil from "./pages/EditPerfil";
+import NotFound from "./pages/NotFound";
 
 function App() {
 
@@ -9,13 +16,13 @@ function App() {
       <AuthProvider>
         <ToastContainer />
         <Router>
-          {/* Colocar Navbar aqui */}
+          <Navbar />
           <div>
             <Routes>
-              <Route path="/" element={<p>Login</p>} />
-              <Route path="/home" element={<p>home</p>} />
+              <Route path="/" element={<Login />} />
+              <Route path="/home" element={<Home />} />
               <Route path="/cadastro" element={<p>Cadastro</p>} />
-              <Route path="/login" element={<p>Login</p>} />
+              <Route path="/login" element={<Login />} />
               <Route path="/regiao" element={<p>temas</p>} />
               <Route path="/cadastrar-regiao" element={<p>Cadastro de região</p>} />
               <Route path="/editar-regiao/:id" element={<p>editar região</p>} />
@@ -24,11 +31,12 @@ function App() {
               <Route path="/cadastrar-treino" element={<p>cadastrar treino</p>} />
               <Route path="/editar-treino/:id" element={<p>editar</p>} />
               <Route path="/deletar-treino/:id" element={<p>deletar treino</p>} />
-              <Route path="/perfil" element={<p>Perfil</p>} />
-              <Route path="*" element={<p>Not Found</p>} />
+              <Route path="/perfil" element={<Perfil />} />
+              <Route path="/editar-perfil" element={<EditPerfil />} />
+              <Route path="*" element={<NotFound />} />
             </Routes>
           </div>
-          {/* Colocar Footer aqui */}
+          <Footer />
         </Router>
       </AuthProvider>
     </>
