@@ -8,6 +8,7 @@ import Perfil from "./pages/Perfil";
 import Login from "./pages/Login";
 import EditPerfil from "./pages/EditPerfil";
 import NotFound from "./pages/NotFound";
+import Cadastro from "./pages/Cadastro";
 
 function App() {
 
@@ -21,7 +22,7 @@ function App() {
             <Routes>
               <Route path="/" element={<Login />} />
               <Route path="/home" element={<Home />} />
-              <Route path="/cadastro" element={<p>Cadastro</p>} />
+              <Route path="/cadastrar" element={<Cadastro />} />
               <Route path="/login" element={<Login />} />
               <Route path="/regiao" element={<p>temas</p>} />
               <Route path="/cadastrar-regiao" element={<p>Cadastro de região</p>} />
