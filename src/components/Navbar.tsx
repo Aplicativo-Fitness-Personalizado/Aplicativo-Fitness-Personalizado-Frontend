@@ -1,4 +1,4 @@
-import { SignOutIcon, UserIcon, Wrench } from "@phosphor-icons/react";
+import { CloverIcon, SignOutIcon, UserIcon, WrenchIcon } from "@phosphor-icons/react";
 import Logo from "../assets/img/logo.png"
 import { Link, useNavigate } from 'react-router';
 import { useContext, type ReactNode } from "react";
@@ -37,7 +37,12 @@ function Navbar() {
 
                     <Link to="/atualizacoes" className="flex items-center gap-4 border-border bg-black text-light text-lg px-4 py-3 rounded ">
                         <span>Em Breve</span>
-                        <Wrench size={24} weight="bold" />
+                        <WrenchIcon size={24} weight="bold" />
+                    </Link>
+
+                    <Link to="/sobre-nos" className="flex items-center gap-4 border-border bg-black text-light text-lg px-4 py-3 rounded ">
+                        <span>Sobre nós</span>
+                        <CloverIcon size={24} weight="bold" />
                     </Link>
 
                     <Link to="/login" onClick={logout} className="flex items-center gap-4 border-border bg-red-500 text-light text-lg px-6 py-3 rounded ">

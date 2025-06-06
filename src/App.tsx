@@ -11,6 +11,7 @@ import NotFound from "./pages/NotFound";
 import Cadastro from "./pages/Cadastro";
 import Atualizacoes from "./components/atualizacoes/Atualizacoes";
 import FormTraining from "./components/formTraining/FormTraining";
+import SobreNos from "./pages/SobreNos";
 
 function App() {
 
@@ -37,6 +38,7 @@ function App() {
               <Route path="/perfil" element={<Perfil />} />
               <Route path="/editar-perfil" element={<EditPerfil />} />
               <Route path="/atualizacoes" element={<Atualizacoes />} />
+              <Route path="/sobre-nos" element={<SobreNos />} />
               <Route path="*" element={<NotFound />} />
             </Routes>
           </div>
