@@ -5,6 +5,7 @@ import type Usuario from "../models/Usuario";
 import { ToastAlerts } from "../util/ToastAlerts";
 import { usuario as cadastrarUsuario } from "../services/Service";
 import { RotatingLines } from "react-loader-spinner";
+import Background from "../assets/img/background.jpg"
 
 
 function Cadastro() {
@@ -193,7 +194,10 @@ function Cadastro() {
 
       </div>
 
-      <div className="w-1/2 bg-cover bg-no-repeat bg-position-[center_top_-79px] relative bg-[url(https://cdn.discordapp.com/attachments/1361772055749595277/1380028753631252550/7-dicas-para-ter-melhores-resultados-na-academia-2048x1365.png?ex=6842636e&is=684111ee&hm=81a328ab7d74b220efc4cf21f8f45103d94679fef9f1e028f223425507e6533b&)] ">
+      <div
+        className="w-1/2 bg-no-repeat bg-[center_top_-79px] relative"
+        style={{ backgroundImage: `url(${Background})` }}
+      >
         <div className="absolute bottom-8 left-8 text-white text-xl max-w-sm">
           <p>
             Encontre o equilíbrio entre o desenvolvimento do software <br /> e do seu corpo.
