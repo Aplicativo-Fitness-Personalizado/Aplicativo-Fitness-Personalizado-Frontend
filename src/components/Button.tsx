@@ -25,7 +25,7 @@ export default function Button({
       onClick={onClick}
       {...rest}
       disabled={variant === "disabled"}
-      className={`w-full cursor-pointer rounded-sm border-none px-3 py-2 text-md font-semibold  focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:cursor-not-allowed 
+      className={`flex justify-center items-center w-full cursor-pointer rounded-sm border-none px-3 py-2 text-md font-semibold  focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:cursor-not-allowed 
       disabled:opacity-50 ${variantClasses[variant]}`}>
       {children}
     </button>

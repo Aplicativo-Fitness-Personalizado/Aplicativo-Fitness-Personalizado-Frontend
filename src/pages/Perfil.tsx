@@ -44,7 +44,7 @@ function Perfil() {
             </section>
 
 
-            <section className="grid grid-cols-1 sm:grid-cols-2 gap-6 max-w-3xl mx-auto mt-12 justify-center">
+            <section className="flex justify-center gap-6 max-w-3xl mx-auto mt-12 justify-center">
                 <Link to="/home">
                     <div className="bg-black text-white p-6 rounded-lg shadow hover:shadow-lg transition h-40">
                         <div className="flex items-center gap-2 mb-4">
@@ -52,16 +52,6 @@ function Perfil() {
                             <h3 className="text-lg font-bold">Meus Treinos</h3>
                         </div>
                         <p className="text-base">Acesse sua rotina personalizada.</p>
-                    </div>
-                </Link>
-
-                <Link to="/">
-                    <div className="bg-black text-white p-6 rounded-lg shadow hover:shadow-lg transition h-40">
-                        <div className="flex items-center gap-2 mb-4">
-                            <HeartbeatIcon size={28} />
-                            <h3 className="text-lg font-bold">Consultar IMC</h3>
-                        </div>
-                        <p className="text-base mb-2">Verifique seu índice de massa corporal.</p>
                     </div>
                 </Link>
             </section>

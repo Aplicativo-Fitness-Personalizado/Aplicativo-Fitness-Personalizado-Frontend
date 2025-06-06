@@ -16,6 +16,7 @@ export default function EditPerfil() {
   const token = usuario.token
 
   const [formData, setFormData] = useState({
+    id: "",
     nome: "",
     usuario: "",
     senha: "",
@@ -38,6 +39,9 @@ export default function EditPerfil() {
   }
 
   async function handleSubmit() {
+    console.log(formData);
+
+
     setIsLoading(true)
     try {
       await atualizar("/usuarios/atualizar", formData, setUsuario, {
@@ -48,7 +52,7 @@ export default function EditPerfil() {
 
       ToastAlerts("Dados atualizados com sucesso!", "sucesso")
       ToastAlerts("Por motivos de segurança o usuario foi deslogado", "info")
-      navigate("/login")
+      handleLogout()
     } catch (error) {
       ToastAlerts("Erro ao atualizar dados. Verifique os campos.", "error")
     }
@@ -57,9 +61,14 @@ export default function EditPerfil() {
   async function buscarUserPorId(id: string) {
     try {
       await buscar(`/usuarios/${id}`, (data: any) => {
+        const { id, nome, usuario, altura, peso } = data
         setFormData({
-          ...data,
-          senha: "", // limpa a senha
+          id,
+          nome,
+          usuario,
+          senha: "", // sempre limpar a senha
+          altura,
+          peso
         })
       }, {
         headers: {
@@ -74,7 +83,12 @@ export default function EditPerfil() {
   }
 
   useEffect(() => {
-    buscarUserPorId(String(usuario.id))
+    buscarUserPorId(String(usuario.id)).then(() => {
+      setFormData((prevData) => ({
+        ...prevData,
+        senha: ""
+      }))
+    })
   }, [])
 
   return (
