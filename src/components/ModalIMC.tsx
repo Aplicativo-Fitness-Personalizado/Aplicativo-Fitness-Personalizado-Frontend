@@ -42,11 +42,13 @@ export default function ModalIMC() {
         nested
       >
         {((close: () => void) => (
-          <div className="flex flex-col gap-4 p-4">
-            <h2>IMC</h2>
-            <p>{IMC.usuario}</p>
-            <p>{IMC.classificacao}</p>
-            <p>{IMC.imc}</p>
+          <div className="flex flex-col items-center gap-4 p-4">
+            <h2 className="text-2xl font-bold">IMC</h2>
+            <div className="">
+              <p><span className="font-bold">Nome:</span> {IMC.usuario}</p>
+              <p><span className="font-bold">Classificado:</span> {IMC.classificacao}</p>
+              <p><span className="font-bold">Valor do IMC:</span> {IMC.imc}</p>
+            </div>
             <Button onClick={() => close()} variant="cancel"> Fechar </Button>
           </div>
         )) as unknown as React.ReactNode}
