@@ -9,7 +9,7 @@ import { buscar, deletar } from '../../services/Service';
 import { ToastAlerts } from '../../util/ToastAlerts';
 import { RotatingLines } from 'react-loader-spinner';
 
-export default function FormDeleteTraining({ id, closeModal }: { id: number, closeModal: () => void }) {
+export default function FormDeleteTraining({ id, atualizarLista, closeModal }: { id: number, atualizarLista?: () => void, closeModal?: () => void }) {
 
   const navigate = useNavigate()
 
@@ -61,6 +61,8 @@ export default function FormDeleteTraining({ id, closeModal }: { id: number, clo
       ToastAlerts("Treino apagado com sucesso", "sucesso")
 
     } catch (error: any) {
+      console.log(error);
+
       if (error.toString().includes('403')) {
         handleLogout()
       } else {
@@ -69,7 +71,12 @@ export default function FormDeleteTraining({ id, closeModal }: { id: number, clo
     }
 
     setIsLoading(false)
-    closeModal()
+    if (closeModal) {
+      closeModal()
+    }
+    if (atualizarLista) {
+      atualizarLista()
+    }
   }
 
   return (
@@ -79,7 +86,7 @@ export default function FormDeleteTraining({ id, closeModal }: { id: number, clo
         <p className="text-2xl font-semibold text-gray-800">Remover Treino</p>
         <p className="text-sm font-semibold text-gray-800">Você tem certeza que deseja remover o registro a seguir?</p>
       </div>
-      <form className="flex flex-col gap-4">
+      <section className="flex flex-col gap-4">
         <Input label='Titulo' placeholder='Titulo' name='bodyRegion' disabled value={treino.titulo} />
         <div className='flex flex-col gap-2'>
           <label htmlFor="descricao" className="w-full pl-3 font-normal">Descrição</label>
@@ -106,7 +113,7 @@ export default function FormDeleteTraining({ id, closeModal }: { id: number, clo
             Cancelar
           </Button>
         </div>
-      </form>
+      </section>
     </div>
   )
 }

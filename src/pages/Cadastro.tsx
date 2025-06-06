@@ -1,8 +1,80 @@
-import { Link } from "react-router";
+import { Link, useNavigate } from "react-router";
 import Logo from "../assets/Logo.png"
+import { useEffect, useState, type ChangeEvent, type FormEvent } from "react";
+import type Usuario from "../models/Usuario";
+import { ToastAlerts } from "../util/ToastAlerts";
+import { usuario as cadastrarUsuario } from "../services/Service";
+import { RotatingLines } from "react-loader-spinner";
 
 
 function Cadastro() {
+  const navigate = useNavigate()
+
+  const [isLoading, setIsLoading] = useState<boolean>(false)
+
+  const [confirmaSenha, setConfirmaSenha] = useState<string>("")
+
+  const [usuario, setUsuario] = useState<Usuario>({
+    id: 0,
+    nome: '',
+    usuario: '',
+    senha: '',
+    altura: '',
+    peso: '',
+  })
+
+  useEffect(() => {
+    if (usuario.id !== 0) {
+      retornar()
+    }
+  }, [usuario])
+
+  function retornar() {
+    navigate('/login')
+  }
+
+  function atualizarEstado(e: ChangeEvent<HTMLInputElement>) {
+    setUsuario({
+      ...usuario,
+      [e.target.name]: e.target.value
+    })
+
+  }
+
+  function handleConfirmarSenha(e: ChangeEvent<HTMLInputElement>) {
+    setConfirmaSenha(e.target.value)
+  }
+
+  async function cadastrarNovoUsuario(e: FormEvent<HTMLFormElement>) {
+    e.preventDefault()
+
+    if (confirmaSenha === usuario.senha && usuario.senha.length >= 8) {
+
+      setIsLoading(true)
+      console.log(usuario);
+
+
+      try {
+        await cadastrarUsuario(`/usuarios/cadastrar`, {
+          nome: usuario.nome,
+          usuario: usuario.usuario,
+          senha: usuario.senha,
+          altura: usuario.altura,
+          peso: usuario.peso,
+        }, setUsuario)
+        ToastAlerts("Usuário cadastrado com sucesso!", "sucesso")
+      } catch (error) {
+        ToastAlerts("Erro ao cadastrar o usuário!", "erro")
+      }
+    } else {
+      ToastAlerts("Dados do usuário inconsistentes! Verifique as informações do cadastro.", "erro")
+      setUsuario({ ...usuario, senha: '' })
+      setConfirmaSenha('')
+    }
+
+    setIsLoading(false)
+  }
+
   return (
     <div className="flex min-h-screen">
       <div className="w-1/2 bg-white flex flex-col justify-center items-center py-12">
@@ -13,58 +85,101 @@ function Cadastro() {
 
           <h2 className="text-text text-4xl font-bold text-left mb-4">Cadastro</h2>
 
-          <form>
+          <form onSubmit={cadastrarNovoUsuario}>
             <div className="mb-4">
-              <label className="block text-text mb-1">Nome</label>
+              <label htmlFor="nome" className="block text-text mb-1">Nome</label>
               <input
                 type="text"
-                placeholder="Fulano da Silva"
-                className="w-full px-4 py-2 text-text-secundary border-4 border-border rounded focus:outline-none focus:ring-2 focus:ring-primary"
+                name="nome"
+                id="nome"
+                placeholder="Nome"
+                className="w-full px-4 py-2 text-text border-4 border-border rounded focus:outline-none focus:ring-2 focus:ring-primary"
+                value={usuario.nome}
+                onChange={(e: ChangeEvent<HTMLInputElement>) => atualizarEstado(e)}
               />
             </div>
 
             <div className="mb-4">
-              <label className="block text-text mb-1">Email</label>
+              <label htmlFor="usuario" className="block text-text mb-1">Email</label>
               <input
                 type="email"
+                id="usuario"
+                name="usuario"
                 placeholder="Exemplo@email.com"
-                className="w-full px-4 py-2 text-text-secundary border-4 border-border rounded focus:outline-none focus:ring-2 focus:ring-primary"
+                autoComplete="off"
+                className="w-full px-4 py-2 text-text border-4 border-border rounded focus:outline-none focus:ring-2 focus:ring-primary"
+                value={usuario.usuario}
+                onChange={(e: ChangeEvent<HTMLInputElement>) => atualizarEstado(e)}
               />
             </div>
 
             <div className="mb-6">
-              <label className="block text-text mb-1">Senha</label>
+              <label htmlFor="senha" className="block text-text mb-1">Senha</label>
               <input
                 type="password"
+                id="senha"
+                name="senha"
                 placeholder="********"
-                className="w-full px-4 py-2 text-text-secundary border-4 border-border rounded focus:outline-none focus:ring-2 focus:ring-primary"
+                autoComplete="off"
+                className="w-full px-4 py-2 text-text border-4 border-border rounded focus:outline-none focus:ring-2 focus:ring-primary"
+                value={usuario.senha}
+                onChange={(e: ChangeEvent<HTMLInputElement>) => atualizarEstado(e)}
+              />
+            </div>
+
+            <div className="mb-6">
+              <label className="block text-text mb-1">Confirmar senha</label>
+              <input
+                name="confirmarSenha"
+                type="password"
+                placeholder="********"
+                autoComplete="off"
+                className="w-full px-4 py-2 text-text border-4 border-border rounded focus:outline-none focus:ring-2 focus:ring-primary"
+                value={confirmaSenha}
+                onChange={(e: ChangeEvent<HTMLInputElement>) => handleConfirmarSenha(e)}
               />
             </div>
 
             <div className="flex gap-4">
               <div className="mb-4">
-                <label className="block text-text mb-1">Altura</label>
+                <label htmlFor="altura" className="block text-text mb-1">Altura</label>
                 <input
+                  id="altura"
+                  name="altura"
                   type="text"
                   placeholder="1.75"
-                  className="w-full px-4 py-2 text-text-secundary border-4 border-border rounded focus:outline-none focus:ring-2 focus:ring-primary"
+                  className="w-full px-4 py-2 text-text border-4 border-border rounded focus:outline-none focus:ring-2 focus:ring-primary"
+                  value={usuario.altura}
+                  onChange={(e: ChangeEvent<HTMLInputElement>) => atualizarEstado(e)}
                 />
               </div>
               <div className="mb-4">
-                <label className="block text-text mb-1">Peso</label>
+                <label htmlFor="peso" className="block text-text mb-1">Peso</label>
                 <input
+                  id="peso"
+                  name="peso"
                   type="text"
                   placeholder="90"
-                  className="w-full px-4 py-2 text-text-secundary border-4 border-border rounded focus:outline-none focus:ring-2 focus:ring-primary"
+                  className="w-full px-4 py-2 text-text border-4 border-border rounded focus:outline-none focus:ring-2 focus:ring-primary"
+                  value={usuario.peso}
+                  onChange={(e: ChangeEvent<HTMLInputElement>) => atualizarEstado(e)}
                 />
               </div>
             </div>
 
             <button
               type="submit"
-              className="w-full bg-primary text-text font-semibold py-2 rounded transition cursor-pointer"
+              className="w-full flex justify-center bg-primary text-text font-semibold py-2 rounded transition cursor-pointer"
             >
-              Cadastrar
+              {isLoading ? <RotatingLines
+                strokeColor="white"
+                strokeWidth="5"
+                animationDuration="0.75"
+                width="24"
+                visible={true}
+              /> :
+                <span>Cadastrar</span>
+              }
             </button>
           </form>
           <p className="text-center text-text-tertiary mt-6">

@@ -5,7 +5,7 @@ import 'reactjs-popup/dist/index.css';
 import './ModalTraining.css';
 import FormDeleteTraining from '../formTraining/FormDeleteTraining';
 
-export default function ModalDeleteTraining({ id }: { id: number }) {
+export default function ModalDeleteTraining({ atualizarLista, id }: { atualizarLista: () => void, id: number }) {
 
 
   return (
@@ -21,7 +21,7 @@ export default function ModalDeleteTraining({ id }: { id: number }) {
         nested
       >
         {((close: () => void) => (
-          <FormDeleteTraining id={id} closeModal={close} />
+          <FormDeleteTraining atualizarLista={atualizarLista} id={id} closeModal={close} />
         )) as unknown as React.ReactNode}
 
       </Popup>

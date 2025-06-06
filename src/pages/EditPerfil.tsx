@@ -16,9 +16,9 @@ export default function EditPerfil() {
     id: usuario.id,
     nome: usuario.nome,
     usuario: usuario.usuario, // email
-    senha: usuario.senha,
-    altura: "",
-    peso: ""
+    senha: "",
+    altura: usuario.altura,
+    peso: usuario.peso
   })
 
   useEffect(() => {
@@ -51,6 +51,7 @@ export default function EditPerfil() {
       ToastAlerts("Erro ao atualizar dados. Verifique os campos.", "error")
     }
   }
+  console.log(usuario);
 
   return (
     <div className="min-h-screen w-full text-text">
@@ -63,6 +64,7 @@ export default function EditPerfil() {
             name="nome"
             value={formData.nome}
             onChange={handleChange}
+            required
           />
           <Input
             label="Email"
@@ -70,13 +72,16 @@ export default function EditPerfil() {
             type="email"
             value={formData.usuario}
             onChange={handleChange}
+            required
           />
           <Input
             label="Senha"
             name="senha"
             type="password"
             value={formData.senha}
+
             onChange={handleChange}
+            required
           />
           <div className="flex gap-6">
             <Input
@@ -84,12 +89,14 @@ export default function EditPerfil() {
               name="altura"
               value={formData.altura}
               onChange={handleChange}
+              required
             />
             <Input
               label="Peso"
               name="peso"
               value={formData.peso}
               onChange={handleChange}
+              required
             />
           </div>
           <Button>Atualizar</Button>

@@ -107,7 +107,7 @@ export default function FormBodyRegion({ closeModal }: { closeModal: () => void 
         <Input label='Nome da Região' placeholder='Costas...' name='nome' required value={regiao.nome} onChange={(e: ChangeEvent<HTMLInputElement>) => atualizarEstado(e)} />
         <div className='flex flex-col gap-2'>
           <label htmlFor="descricao" className="w-full pl-3 font-normal">Descrição</label>
-          <textarea name="descricao" className='resize-none w-full rounded-sm border-border bg-white px-3 py-2 text-md placeholder:text-muted-foreground text-text-secundary border-2 focus:outline-none focus:ring-2 focus:ring-primary' id="descricao" placeholder='Descrição...' value={regiao.descricao}
+          <textarea name="descricao" className='resize-none w-full rounded-sm border-border bg-white px-3 py-2 text-md placeholder:text-muted-foreground text-text border-2 focus:outline-none focus:ring-2 focus:ring-primary' id="descricao" placeholder='Descrição...' value={regiao.descricao}
             onChange={(e: ChangeEvent<HTMLTextAreaElement>) => atualizarEstado(e)} ></textarea>
         </div>
         <div className='flex gap-2'>

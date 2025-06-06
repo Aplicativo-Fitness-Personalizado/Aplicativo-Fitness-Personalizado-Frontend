@@ -5,13 +5,15 @@ import ModalDeleteTraining from '../modalTraining/ModalDeleteTraining';
 import FormTraining from '../formTraining/FormTraining';
 import Popup from 'reactjs-popup';
 import { Link } from 'react-router';
+import ModalTraining from '../modalTraining/ModalTraining';
 
 
 interface CardTreinoProps {
   treino: Treino
+  atualizarLista: () => void
 }
 
-function CardTreino({ treino }: CardTreinoProps) {
+function CardTreino({ atualizarLista, treino }: CardTreinoProps) {
   return (
     <div className="relative bg-white rounded-xl cursor-pointer shadow-md hover:shadow-xl shadow-gray-600 transition-shadow duration-300 w-[392px] h-[336px] px-6 py-4 border-1 border-gray-200">
       <div className="grid grid-cols-2 text-gray-500 mb-2">
@@ -42,18 +44,8 @@ function CardTreino({ treino }: CardTreinoProps) {
       </div>
 
       <div className="flex justify-between absolute bottom-3 gap-4">
-
-        <Link to={`/editar-treino/${treino.id}`}>
-          <button className="cursor-pointer font-semibold px-4 py-1 rounded-lg bg-gray-700 text-white hover:bg-gray-900 transition-colors duration-1000 w-[150px] h-[50px]">
-            <img src={editar} alt="Logo do lápis" className="w-[14px] h-[16px] inline-block mr-2" />
-            Editar
-          </button>
-        </Link>
-
-
-        <ModalDeleteTraining id={treino.id} />
-
-
+        <ModalTraining id={String(treino.id)} atualizarLista={atualizarLista} />
+        <ModalDeleteTraining atualizarLista={atualizarLista} id={treino.id} />
       </div>
     </div>
   )

@@ -1,4 +1,4 @@
-import { useNavigate, useParams } from 'react-router';
+import { Link, useNavigate, useParams } from 'react-router';
 import alter from '../../assets/icons/alter.png';
 import Button from '../Button';
 import Input from '../Input';
@@ -10,7 +10,7 @@ import { atualizar, buscar, cadastrar } from '../../services/Service';
 import { ToastAlerts } from '../../util/ToastAlerts';
 import { RotatingLines } from 'react-loader-spinner';
 
-export default function FormTraining({ closeModal }: { closeModal?: () => void }) {
+export default function FormTraining({ atualizarLista, closeModal, id }: { id?: string, atualizarLista?: () => void, closeModal?: () => void }) {
 
   const navigate = useNavigate();
 
@@ -20,7 +20,7 @@ export default function FormTraining({ closeModal }: { closeModal?: () => void }
   const [regiao, setRegiao] = useState<RegiaoCorporal>({ id: 0, nome: "", descricao: '' })
   const [treino, setTreino] = useState<Treino>({} as Treino)
 
-  const { id } = useParams<{ id: string }>()
+  // const { id } = useParams<{ id: string }>()
 
   const { usuario, handleLogout } = useContext(AuthContext)
   const token = usuario.token
@@ -94,7 +94,6 @@ export default function FormTraining({ closeModal }: { closeModal?: () => void }
 
     } else {
       try {
-
         await cadastrar(`/treinos`, treino, setTreino, {
           headers: {
             Authorization: token,
@@ -112,7 +111,15 @@ export default function FormTraining({ closeModal }: { closeModal?: () => void }
     }
 
     setIsLoading(false)
-    retornar()
+
+    closeModal ? closeModal() : retornar()
+    if (atualizarLista) {
+      atualizarLista()
+    }
+  }
+
+  function retornar() {
+    navigate('/home');
   }
 
   useEffect(() => {
@@ -131,15 +138,11 @@ export default function FormTraining({ closeModal }: { closeModal?: () => void }
   }, [id])
 
   useEffect(() => {
-    setTreino({
-      ...treino,
+    setTreino((prevtreino) => ({
+      ...prevtreino,
       regiaoCorporal: regiao,
-    })
+    }))
   }, [regiao])
-
-  function retornar() {
-    navigate('/home');
-  }
 
   const carregandoRegiao = regiao.descricao === '';
 
@@ -160,22 +163,23 @@ export default function FormTraining({ closeModal }: { closeModal?: () => void }
             onChange={(e: ChangeEvent<HTMLTextAreaElement>) => atualizarEstado(e)}></textarea>
         </div>
         <div className='flex gap-2'>
-          <Input label='Repetição' placeholder='4 series de 10 repetições' name='repeticao' required value={treino.repeticao} onChange={(e: ChangeEvent<HTMLInputElement>) => atualizarEstado(e)} />
+          <Input label='Repetição' placeholder='4' name='repeticao' required value={treino.repeticao} onChange={(e: ChangeEvent<HTMLInputElement>) => atualizarEstado(e)} type="number" />
           <Input label='Tempo de descanso' placeholder='60 min' name='tempoDescanso' required value={treino.tempoDescanso} onChange={(e: ChangeEvent<HTMLInputElement>) => atualizarEstado(e)} />
         </div>
         <div className='flex flex-col gap-2'>
           <label htmlFor="regioesCorporal" className="w-full pl-3 font-normal">Região trabalhada</label>
           <select
-            value={treino.regiaoCorporal?.nome}
+            required
+            value={treino.regiaoCorporal?.id || ""}
             name="regioesCorporal"
             id="regioesCorporal"
             className='resize-none w-full rounded-sm border-border bg-white px-3 py-2 text-md placeholder:text-muted-foreground text-text border-2 focus:outline-none focus:ring-2 focus:ring-primary'
             onChange={(e) => buscarRegiaoPorId(e.currentTarget.value)}
           >
-            <option value="" disabled>Selecione uma Região</option>
+            <option value="" selected disabled>Selecione uma Região</option>
             {regioes.map((regiao) => (
               <>
-                <option value={regiao.id}>{regiao.nome}</option>
+                <option key={regiao.id} value={regiao.id}>{regiao.nome}</option>
               </>
             ))}
           </select>
@@ -193,9 +197,17 @@ export default function FormTraining({ closeModal }: { closeModal?: () => void }
               <span>{id !== undefined ? 'Atualizar' : 'Cadastrar'}</span>
             }
           </Button>
-          <Button variant='cancel' className='mt-2' onClick={closeModal}>
-            Cancelar
-          </Button>
+          {id !== undefined
+            ? <Link to="/home">
+              <Button variant='cancel' className='mt-2' onClick={closeModal}>
+                Cancelar
+              </Button>
+            </Link>
+            : <Button variant='cancel' className='mt-2' onClick={closeModal}>
+              Cancelar
+            </Button>
+          }
+
         </div>
       </form>
     </div>
