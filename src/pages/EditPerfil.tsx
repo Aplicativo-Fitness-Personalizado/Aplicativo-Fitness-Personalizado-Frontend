@@ -47,7 +47,8 @@ export default function EditPerfil() {
       })
 
       ToastAlerts("Dados atualizados com sucesso!", "sucesso")
-      navigate("/perfil")
+      ToastAlerts("Por motivos de segurança o usuario foi deslogado", "info")
+      navigate("/login")
     } catch (error) {
       ToastAlerts("Erro ao atualizar dados. Verifique os campos.", "error")
     }
