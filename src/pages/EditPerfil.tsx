@@ -6,19 +6,21 @@ import Button from "../components/Button"
 
 import { AuthContext } from "../contexts/AuthContext"
 import { ToastAlerts } from "../util/ToastAlerts"
-import { atualizar } from "../services/Service"
+import { atualizar, buscar } from "../services/Service"
+import { RotatingLines } from "react-loader-spinner"
 
 export default function EditPerfil() {
   const navigate = useNavigate()
-  const { usuario, setUsuario } = useContext(AuthContext)
+  const { usuario, setUsuario, handleLogout } = useContext(AuthContext)
+  const [isLoading, setIsLoading] = useState<boolean>(false)
+  const token = usuario.token
 
   const [formData, setFormData] = useState({
-    id: usuario.id,
-    nome: usuario.nome,
-    usuario: usuario.usuario, // email
+    nome: "",
+    usuario: "",
     senha: "",
-    altura: usuario.altura,
-    peso: usuario.peso
+    altura: "",
+    peso: ""
   })
 
   useEffect(() => {
@@ -35,9 +37,8 @@ export default function EditPerfil() {
     })
   }
 
-  async function handleSubmit(e: React.FormEvent) {
-    e.preventDefault()
-
+  async function handleSubmit() {
+    setIsLoading(true)
     try {
       await atualizar("/usuarios/atualizar", formData, setUsuario, {
         headers: {
@@ -45,20 +46,42 @@ export default function EditPerfil() {
         }
       })
 
-      ToastAlerts("Dados atualizados com sucesso!", "success")
+      ToastAlerts("Dados atualizados com sucesso!", "sucesso")
       navigate("/perfil")
     } catch (error) {
       ToastAlerts("Erro ao atualizar dados. Verifique os campos.", "error")
     }
   }
-  console.log(usuario);
+
+  async function buscarUserPorId(id: string) {
+    try {
+      await buscar(`/usuarios/${id}`, (data: any) => {
+        setFormData({
+          ...data,
+          senha: "", // limpa a senha
+        })
+      }, {
+        headers: {
+          'Authorization': token
+        }
+      })
+    } catch (error: any) {
+      if (error.toString().includes('403')) {
+        handleLogout()
+      }
+    }
+  }
+
+  useEffect(() => {
+    buscarUserPorId(String(usuario.id))
+  }, [])
 
   return (
     <div className="min-h-screen w-full text-text">
       <div className="max-w-[600px] m-auto pt-10">
         <h2 className="font-medium text-4xl mb-8">Seus Dados</h2>
 
-        <form className="flex flex-col gap-6" onSubmit={handleSubmit}>
+        <div className="flex flex-col gap-6">
           <Input
             label="Nome"
             name="nome"
@@ -99,8 +122,19 @@ export default function EditPerfil() {
               required
             />
           </div>
-          <Button>Atualizar</Button>
-        </form>
+          <Button onClick={handleSubmit}>
+            {isLoading ?
+              <RotatingLines
+                strokeColor="white"
+                strokeWidth="5"
+                animationDuration="0.75"
+                width="24"
+                visible={true}
+              /> :
+              <span>Atualizar</span>
+            }
+          </Button>
+        </div>
       </div>
     </div>
   )
