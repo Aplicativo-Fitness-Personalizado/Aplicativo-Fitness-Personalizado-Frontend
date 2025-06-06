@@ -55,6 +55,7 @@ export default function EditPerfil() {
       handleLogout()
     } catch (error) {
       ToastAlerts("Erro ao atualizar dados. Verifique os campos.", "error")
+      setIsLoading(false)
     }
   }
 
@@ -115,9 +116,7 @@ export default function EditPerfil() {
           <Input
             label="Senha"
             name="senha"
-            type="password"
             value={formData.senha}
-
             onChange={handleChange}
             required
           />

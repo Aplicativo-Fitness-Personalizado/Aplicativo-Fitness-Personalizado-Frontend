@@ -114,7 +114,7 @@ function Cadastro() {
             </div>
 
             <div className="mb-6">
-              <label htmlFor="senha" className="block text-text mb-1">Senha</label>
+              <label htmlFor="senha" className="block text-text mb-1">Senha <span className="text-[10px]">(Deve conter 8 caracteres no minimo)</span></label>
               <input
                 type="password"
                 id="senha"
@@ -142,7 +142,7 @@ function Cadastro() {
 
             <div className="flex gap-4">
               <div className="mb-4">
-                <label htmlFor="altura" className="block text-text mb-1">Altura</label>
+                <label htmlFor="altura" className="block text-text mb-1">Altura <span className="text-[10px]">(Utilize ponto para decimais)</span></label>
                 <input
                   id="altura"
                   name="altura"
